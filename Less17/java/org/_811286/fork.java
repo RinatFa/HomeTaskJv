@@ -1,10 +1,10 @@
 package org._811286;
 
-public class fork {
+public class Fork {
     private int iNumber;
-    private boolean bBusyFree = false;
+    private volatile boolean bBusyFree = false;
 
-    public fork(int iNumber, boolean bFreeBusy) {
+    public Fork(int iNumber, boolean bFreeBusy) {
         this.iNumber = iNumber;
         this.bBusyFree = bFreeBusy;
     }

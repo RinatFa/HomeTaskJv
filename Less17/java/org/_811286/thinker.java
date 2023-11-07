@@ -1,13 +1,13 @@
 package org._811286;
 
-public class thinker implements Runnable {
+public class Thinker implements Runnable {
     private String name;
-    private fork lfork;
-    private fork rfork;
+    private Fork lfork;
+    private Fork rfork;
     private int iNumbEat;
-    private boolean bEating = false;
+    private volatile boolean bEating = false;
 
-    public thinker(String name, fork lfork, fork rFork, int iNumbEat, boolean bEating) {
+    public Thinker(String name, Fork lfork, Fork rFork, int iNumbEat, boolean bEating) {
         this.name = name;
         this.lfork = lfork;
         this.rfork = rFork;
@@ -19,18 +19,20 @@ public class thinker implements Runnable {
     public void run() {
         boolean bStop = false;
         while (!bStop) {
-            if (!lfork.isbBusyFree() && !rfork.isbBusyFree()) {
+            if (!lfork.isbBusyFree() && !rfork.isbBusyFree() && Main5Thinkers.countFork < 4) {
                 lfork.setbBusyFree(true);
                 rfork.setbBusyFree(true);
+                Main5Thinkers.countFork += 2;
                 bEating = true;
-                System.out.println(this.toString());
+                System.out.println(this.toString() + " начал есть");
                 try {
-                    Thread.sleep(3000);
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
                 lfork.setbBusyFree(false);
                 rfork.setbBusyFree(false);
+                Main5Thinkers.countFork -= 2;
                 bEating = false;
                 iNumbEat++;
                 if (iNumbEat > 2) {
@@ -40,15 +42,15 @@ public class thinker implements Runnable {
             } else {
                 System.out.println(this.toString());
                 try {
-                    Thread.sleep(3000);
+                    Thread.sleep(300);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
             }
         }
         System.out.println("***** Мыслитель " + name + " поел 3 раза! *****");
-        main5Thinkers.count++;
-        if (main5Thinkers.count == 5) {
+        Main5Thinkers.count++;
+        if (Main5Thinkers.count == 5) {
             System.out.println();
             System.out.println("***** Каждый из 5 Мыслителей поел три раза! *****");
         }
@@ -73,10 +75,15 @@ public class thinker implements Runnable {
         } else {
             sEating = "Мыслит";
         }
+        String[] sArray = new String[] { "", "_", "_", "_", "_", "_" };
+        sArray[lfork.getiNumber()] = Integer.toString(lfork.getiNumber());
+        sArray[rfork.getiNumber()] = Integer.toString(rfork.getiNumber());
         return "Мыслитель " + name +
                 " - сейчас " + sEating +
                 " , уже поел " + iNumbEat + " раза" +
                 ", вилки: левая " + lfork.getiNumber() + sLeft +
-                ", правая " + rfork.getiNumber() + sRight;
+                ", правая " + rfork.getiNumber() + sRight +
+                " " + String.join("", sArray) +
+                " " + Main5Thinkers.countFork;
     }
 }

@@ -14,36 +14,37 @@ package org._811286;
  * должны быть свободны
  * Описать в виде кода такую ситуацию. Каждый философ должен поесть три раза
  */
-public class main5Thinkers {
-    public static int count = 0;
+public class Main5Thinkers {
+        public static int count = 0;
+        public static int countFork = 0;
 
-    public static void main(String[] args) {
-        fork fork1 = new fork(1, false);
-        fork fork2 = new fork(2, false);
-        fork fork3 = new fork(3, false);
-        fork fork4 = new fork(4, false);
-        fork fork5 = new fork(5, false);
-        thinker think1_Descartes = new thinker(
-                "Декарт  1", fork1, fork2, 0, false);
-        thinker think2_Leibniz = new thinker(
-                "Лейбниц 2", fork2, fork3, 0, false);
-        thinker think3_Voltaire = new thinker(
-                "Вольтер 3", fork3, fork4, 0, false);
-        thinker think4_Rousseau = new thinker(
-                "Руссо   4", fork4, fork5, 0, false);
-        thinker think5_The_Buddha = new thinker(
-                "Будда   5", fork5, fork1, 0, false);
+        public static void main(String[] args) {
+                Fork fork1 = new Fork(1, false);
+                Fork fork2 = new Fork(2, false);
+                Fork fork3 = new Fork(3, false);
+                Fork fork4 = new Fork(4, false);
+                Fork fork5 = new Fork(5, false);
+                Thinker think1_Descartes = new Thinker(
+                                "Декарт  1", fork1, fork2, 0, false);
+                Thinker think2_Leibniz = new Thinker(
+                                "Лейбниц 2", fork2, fork3, 0, false);
+                Thinker think3_Voltaire = new Thinker(
+                                "Вольтер 3", fork3, fork4, 0, false);
+                Thinker think4_Rousseau = new Thinker(
+                                "Руссо   4", fork4, fork5, 0, false);
+                Thinker think5_The_Buddha = new Thinker(
+                                "Будда   5", fork5, fork1, 0, false);
 
-        System.out.println();
-        Thread thread1_Descartes = new Thread(think1_Descartes);
-        Thread thread2_Leibniz = new Thread(think2_Leibniz);
-        Thread thread3_Voltaire = new Thread(think3_Voltaire);
-        Thread thread4_Rousseau = new Thread(think4_Rousseau);
-        Thread thread5_The_Buddha = new Thread(think5_The_Buddha);
-        thread1_Descartes.start();
-        thread2_Leibniz.start();
-        thread3_Voltaire.start();
-        thread4_Rousseau.start();
-        thread5_The_Buddha.start();
-    }
+                System.out.println();
+                Thread thread1_Descartes = new Thread(think1_Descartes);
+                Thread thread2_Leibniz = new Thread(think2_Leibniz);
+                Thread thread3_Voltaire = new Thread(think3_Voltaire);
+                Thread thread4_Rousseau = new Thread(think4_Rousseau);
+                Thread thread5_The_Buddha = new Thread(think5_The_Buddha);
+                thread5_The_Buddha.start();
+                thread1_Descartes.start();
+                thread2_Leibniz.start();
+                thread3_Voltaire.start();
+                thread4_Rousseau.start();
+        }
 }
